@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PropertyContactRequest;
 use App\Http\Requests\SearchPropertiesRequest;
+use App\Mail\PropertyContactMail;
 use App\Models\Property;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Mailer;
 
 class PropertyController extends Controller
 {
     public function index(SearchPropertiesRequest $request)
     {
-        $query = Property::query();
+        $query = Property::query()->orderBy('created_at', 'desc');
         if ($price = $request->validated('price')) {
             $query->where('price', '<=', $price);
         }
@@ -29,6 +32,17 @@ class PropertyController extends Controller
 
     public function show(string $slug, Property $property)
     {
+        $exepectedSlug = $property->getSlug();
+        if ($slug !== $exepectedSlug) {
+            return to_route('properties.index', ['slug' => $exepectedSlug, 'property' => $property]);
+        }
+
         return view('properties.show', ['property' => $property]);
+    }
+
+    public function contact(Property $property, PropertyContactRequest $request)
+    {
+        Mailer::send(new PropertyContactMail($property, $request->validated()));
+        return back()->with('success', 'Votre demande de contact a bien été envoyé');
     }
 }
