@@ -4,8 +4,6 @@
 
 @section('content')
 
-
-
 <div class="bg-light p-5 mb-5 text-justify">
   <form action="" method="get" class="container d-flex gap-2">
     <input type="number" placeholder="Surface minimum (sq ft)" class="form-control" name="surface" value="{{ $input['surface'] ?? '' }}">

@@ -4,8 +4,8 @@
 
 @section('content')
 <div class="container">
-    
   <h1 class="mt-4">{{ $property->title }}</h1>
+      
   <h2>{{ $property->rooms }} pièces - {{ $property->surface }} sq ft</h2>
 
   <div class="text-primary fw-bold" style="font-size: 2rem;">
@@ -13,13 +13,15 @@
   </div>
 
   <hr>
-
+  @if ($property->sold)
+      <div class="badge text-wrap bg-danger text-white fs-5">Ce bien est vendu</div>
+  @else
   <div class="mt-4">
     <h4>Interessé par ce bien?</h4>
 
     @include('shared.flash')
 
-    <form action="{{ route('properties.contact', $property) }}" method="post" class="vstack gap-3">
+    <form action="{{ route('property.contact', $property) }}" method="post" class="vstack gap-3">
       @csrf
       <div class="row">
         @include('shared.input', [
@@ -57,7 +59,7 @@
       </div>
     </form>
   </div>
-
+  @endif
   <div class="mt-4 my-4">
     <p>{!! nl2br($property->description) !!}</p>
     <div class="row">
