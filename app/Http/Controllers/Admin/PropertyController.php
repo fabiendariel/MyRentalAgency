@@ -31,7 +31,7 @@ class PropertyController extends Controller
             'surface' => 500,
             'rooms' => 3,
             'bedrooms' => 1,
-            'floor' => 1,
+            'bath' => 1,
             'city' => 'Montreal',
             'postal_code' => 'H1GXXX',
             'sold' => false
@@ -49,7 +49,7 @@ class PropertyController extends Controller
     {
         $property = Property::create($request->validated());
         $property->options()->sync($request->validated('options'));
-        return to_route('admin.property.index')->with('success', 'Le bien a été créé');
+        return to_route('admin.property.index')->with('success', 'Property has been created');
     }
 
     /**
@@ -70,7 +70,7 @@ class PropertyController extends Controller
     {
         $property->options()->sync($request->validated('options'));
         $property->update($request->validated());
-        return to_route('admin.property.index')->with('success', 'Le bien a été modifié');
+        return to_route('admin.property.index')->with('success', 'Property has been updated');
     }
 
     /**
@@ -79,6 +79,6 @@ class PropertyController extends Controller
     public function destroy(Property $property)
     {
         $property->delete();
-        return to_route('admin.property.index')->with('success', 'Le bien a été supprimé');
+        return to_route('admin.property.index')->with('success', 'Property has been deleted');
     }
 }

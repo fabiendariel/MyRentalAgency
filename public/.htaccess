@@ -19,3 +19,14 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+
+RewriteEngine On
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:CF-Visitor} !{"scheme":"https"}
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+RewriteCond %{REQUEST_URI} !^/(robots\.txt|favicon\.ico|sitemap\.xml)$
+RewriteCond %{HTTP_HOST} !^www\.fabiendariel\.com$ [NC]
+RewriteRule ^(.*)$ https://www.fabiendariel.com/$1 [R=301,L]

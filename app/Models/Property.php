@@ -22,12 +22,13 @@ class Property extends Model
         'surface', 
         'rooms',
         'bedrooms',
-        'floor',
+        'bath',
         'price',
         'city',
         'address', 
         'postal_code',
-        'sold'
+        'sold',
+        'picture'
     ];
 
     public function options()

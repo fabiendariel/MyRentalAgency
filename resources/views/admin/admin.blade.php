@@ -1,57 +1,119 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.bootstrap5.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
-  <title>@yield('title') | Administration</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@yield('title') | Administration</title>
+
+    <!-- Favicon -->
+    <link href="{{ asset('/img/favicon.ico') }}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ asset('/css/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('/js/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
+    
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('/js/wow/wow.min.js') }}"></script>
+    <script src="{{ asset('/js/easing/easing.min.js') }}"></script>
+    <script src="{{ asset('/js/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ asset('/js/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('/js/app.js') }}"></script>
+    
+    <!-- Tom-Select Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.bootstrap5.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+<head>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">MyRentalAgency</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    @php
-        $route = request()->route()->getName();
-    @endphp
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a @class(['nav-link', 'active' => str_contains($route, 'property.')]) href="{{ route('admin.property.index') }}">Gérer les biens</a>
-        </li>
-        <li class="nav-item">
-          <a @class(['nav-link', 'active' => str_contains($route, 'option.')]) href="{{ route('admin.option.index') }}">Gérer les options</a>
-        </li>        
-      </ul>   
-      <div class="ms-auto">
-        @auth
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <form action="{{ route('logout') }}" method="post">
-                  @csrf
-                  @method('delete')
-                  <button class="nav-link">Se déconnecter</button>
-                </form>
-              </li>
-            </ul>
-        @endauth
-      </div>   
+  <div class="container-xxl bg-white p-0">
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
     </div>
-  </div>
-</nav>
+    <!-- Spinner End -->
 
-  <div class="container mt-5">
+    <!-- Navbar Start -->
+    <div class="container-fluid nav-bar bg-transparent sticky-top mt-0">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4">
+            <a href="{{ route('home') }}" class="navbar-brand d-flex align-items-center text-center">
+                <div class="icon p-2 me-2">
+                    <img class="img-fluid" src="{{ asset('/img/icon-deal.png') }}" alt="Icon" style="width: 30px; height: 30px;">
+                </div>
+                <h1 class="m-0 text-primary">MyRentalAgency</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            @php
+              $route = request()->route()->getName();
+            @endphp
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto">
+                    <a @class(['nav-item nav-link', 'active' => str_contains($route, 'home')]) 
+                  href="{{ route('home') }}">Home</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" @class(['nav-link dropdown-toggle', 'active' => str_contains($route, 'property.index')]) data-bs-toggle="dropdown">Property</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="{{ route('property.index') }}" class="dropdown-item" >Property List</a>
+                        </div>
+                    </div>                        
+                    <a href="about.html" class="nav-item nav-link">About</a>                
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>                
+                @auth
+                  <div class="nav-item dropdown">
+                      <a href="#" @class(['nav-link dropdown-toggle', 'active' => str_contains($route, 'admin.')]) 
+                      data-bs-toggle="dropdown">Manage</a>
+                      <div class="dropdown-menu rounded-0 m-0">
+                        <a @class(['dropdown-item', 'active' => str_contains($route, 'admin.property.')]) 
+                          href="{{ route('admin.property.index') }}">Manage Listings</a>
+                        <a @class(['dropdown-item', 'active' => str_contains($route, 'option.')]) 
+                          href="{{ route('admin.option.index') }}">Manage Options</a>
+                      </div>
+                  </div>                  
+                </div>
+                <a @class(['btn btn-secondary px-3 d-none d-lg-flex', 'active' => str_contains($route, 'login')]) 
+                  href="{{ route('logout') }}">Logout</a>
+                @endauth 
+                @guest
+                </div>
+                <a @class(['btn btn-primary px-3 d-none d-lg-flex', 'active' => str_contains($route, 'login')]) 
+                  href="{{ route('login') }}">Login</a>
+                @endguest
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->  
   
-    @include('shared.flash')
-    
-    @yield('content')
-  </div>
+    <div class="container mt-2 p-5">  
+      @include('shared.flash')    
+      @yield('content')
+    </div>
 
+  </div>
+  
   <script>
     new TomSelect('select[multiple]', {plugins: {remove_button: {title: 'Supprimer'}}})
   </script>

@@ -43,6 +43,6 @@ class PropertyController extends Controller
     public function contact(Property $property, PropertyContactRequest $request)
     {
         Mailer::send(new PropertyContactMail($property, $request->validated()));
-        return back()->with('success', 'Votre demande de contact a bien été envoyé');
+        return back()->with('success', 'Your message has been sent');
     }
 }

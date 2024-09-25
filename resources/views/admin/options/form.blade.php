@@ -1,6 +1,6 @@
 @extends('admin.admin')
 
-@section('title', $option->exists ? "Editer une option" : "Ajouter une option")
+@section('title', $option->exists ? "Edit an option" : "Add an option")
     
 @section('content')
     <h1>@yield('title')</h1>
@@ -9,20 +9,20 @@
     @csrf
     @method($option->exists ? 'put' : 'post')
     
-    <div class="row">
+    <div class="rowmt-3">
       @include('shared.input', [
         'class' => 'col',
-        'label'=> 'Nom', 
+        'label'=> 'Name', 
         'name' => 'name', 
         'value' => $option->name
       ])
     </div>
-    <div>
+    <div class="mt-4">
       <button class="btn btn-primary">
         @if ($option->exists)
-            Modifier
+            Edit
         @else
-            Créer
+            Add
         @endif
       </button>
     </div>

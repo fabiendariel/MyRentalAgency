@@ -1,6 +1,6 @@
 @extends('admin.admin')
 
-@section('title', $property->exists ? "Editer un bien" : "Ajouter un bien")
+@section('title', $property->exists ? "Update a property" : "Add a property")
     
 @section('content')
     <h1>@yield('title')</h1>
@@ -9,10 +9,10 @@
     @csrf
     @method($property->exists ? 'put' : 'post')
     
-    <div class="row">
+    <div class="row mt-3">
       @include('shared.input', [
         'class' => 'col',
-        'label'=> 'Titre', 
+        'label'=> 'Title', 
         'name' => 'title', 
         'value' => $property->title
       ])
@@ -24,76 +24,91 @@
         ])
         @include('shared.input', [
           'class' => 'col',
-          'label'=> 'Prix', 
+          'label'=> 'Price', 
           'name' => 'price', 
           'value' => $property->price
         ])
       </div>    
     </div>
+    <div class="row mt-3">
     @include('shared.input', [
       'type' => 'textarea',
       'class' => 'col', 
       'name' => 'description', 
       'value' => $property->description
     ])
-    <div class="row">
+    </div>
+    <div class="row mt-3">
       @include('shared.input', [
-        'label'=> 'Pièces', 
+        'label'=> 'Rooms', 
         'class' => 'col', 
         'name' => 'rooms', 
         'value' => $property->rooms
       ])
       @include('shared.input', [
-        'label'=> 'Chambres', 
+        'label'=> 'Bed', 
         'class' => 'col', 
         'name' => 'bedrooms', 
         'value' => $property->bedrooms
       ])
       @include('shared.input', [
-        'label'=> 'Etage', 
+        'label'=> 'Bath', 
         'class' => 'col', 
-        'name' => 'floor', 
-        'value' => $property->floor
+        'name' => 'bath', 
+        'value' => $property->bath
       ])
     </div>
-    <div class="row">
+    <div class="row mt-3">
       @include('shared.input', [
-        'label'=> 'Adresse', 
+        'label'=> 'Address', 
         'class' => 'col', 
         'name' => 'address', 
         'value' => $property->address
       ])
       @include('shared.input', [
-        'label'=> 'Ville', 
+        'label'=> 'City', 
         'class' => 'col', 
         'name' => 'city', 
         'value' => $property->city
       ])
       @include('shared.input', [
-        'label'=> 'Code Postal', 
+        'label'=> 'Postal Code', 
         'class' => 'col', 
         'name' => 'postal_code', 
         'value' => $property->postal_code
       ])
+      @include('shared.input', [
+      'label'=> 'Picture', 
+      'class' => 'col', 
+      'name' => 'picture', 
+      'value' => $property->picture
+    ])
     </div>
+    <div class="row mt-3">
     @include('shared.select', [
-      'label'=> 'Spécificités', 
+      'label'=> 'Options', 
+      'class' => 'col', 
       'name' => 'options', 
       'value' => $property->options()->pluck('id'),
       'options' => $options
     ])
+    </div>
+    
+    <div class="row m-3">
     @include('shared.chbx', [
-      'label'=> 'Vendu', 
+      'label'=> 'Sold', 
+      'class' => 'col', 
       'name' => 'sold', 
       'value' => $property->sold
     ])
+    </div>
 
-    <div>
+    <div class="mt-4">
       <button class="btn btn-primary">
         @if ($property->exists)
-            Modifier
+            Update
         @else
-            Créer
+            Add
         @endif
       </button>
     </div>

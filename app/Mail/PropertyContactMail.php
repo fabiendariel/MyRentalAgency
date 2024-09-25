@@ -29,7 +29,7 @@ class PropertyContactMail extends Mailable
     {
         return new Envelope(
             to: 'contact@myrentalagency.ca',
-            subject: 'Demande de contact pour un bien MyRentalAgency',
+            subject: 'New property information request for MyRentalAgency',
         );
     }
 

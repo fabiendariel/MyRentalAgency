@@ -8,6 +8,8 @@
   <h1>@yield('title')</h1>
 
   @include('shared.flash')
+  
+  <h5>This website is a demo, you can access to back office with login john@doe.fr and password 0000</h5>
 
   <form action="{{ route('login') }}" method="post" class="vstack mt-4 gap-3">
     @csrf

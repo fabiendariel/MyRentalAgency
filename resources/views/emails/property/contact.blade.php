@@ -1,12 +1,12 @@
 <x-mail::message>
-# Nouvelle demande de contact
+# New property information request
 
-Une nouvelle demande de contact à été envoyée pour le bien <a href="{{ route('properties.show', ['slug' => $property->getSlug(),'property' => $property]) }}">{{ $property->title }}</a>
+A new property information request has been sent for the property <a href="{{ route('properties.show', ['slug' => $property->getSlug(),'property' => $property]) }}">{{ $property->title }}</a>
 
-- Prénom : {{ $data['firstname'] }}
-- Nom : {{ $data['lastname'] }}
-- Téléphone : {{ $data['phone'] }}
-- Courriel : {{ $data['email'] }}
+- First Name : {{ $data['firstname'] }}
+- Last Name : {{ $data['lastname'] }}
+- Phone : {{ $data['phone'] }}
+- Email : {{ $data['email'] }}
 
 **Message : **<br/>
 {{ $data['message'] }}

@@ -21,15 +21,22 @@ use Illuminate\Support\Facades\Route;
 $idRegex = '[0-9]+';
 $slugRegex = '[0-9a-z\-]+';
 
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/biens', [PropertyController::class, 'index'])
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::get('/testimonials', [HomeController::class, 'testimonials'])->name('testimonials');
+
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::post('/contact/send', [HomeController::class, 'contactSend'])
+->name('contact.send');
+
+Route::get('/property', [PropertyController::class, 'index'])
 ->name('property.index');
-Route::get('/biens/{slug}-{property}', [PropertyController::class, 'show'])
+Route::get('/property/{slug}-{property}', [PropertyController::class, 'show'])
 ->name('property.show')->where([
     'property' => $idRegex,
     'slug' => $slugRegex
 ]);
-Route::post('/biens/{property}/contact', [PropertyController::class, 'contact'])
+Route::post('/property/{property}/contact', [PropertyController::class, 'contact'])
 ->name('property.contact')->where(['property' => $idRegex]);
 
 Route::get('/login', [AuthController::class, 'login'])
@@ -46,3 +53,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 });
 
 Route::get('/images/{path}', [ImageController::class, 'show']);
+
+Route::fallback(function() {
+   return view('404'); // 404 Error View
+});
